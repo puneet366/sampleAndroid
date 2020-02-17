@@ -32,11 +32,7 @@ node {
 
 
 
-    stage('Unit Test') {
-
-        sh "./gradlew test"
-
-    }
+    
 
 
 
