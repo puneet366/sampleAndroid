@@ -1,34 +1,64 @@
 node {
 
 
-   List environment = [
+
+    def isMainline = ["develop", "master"].contains(env.BRANCH_NAME)
+
+
+
+    List environment = [
 
         "GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/fqdemo-service-credentials-key.json"
 
     ]
-  // Mark the code checkout 'stage'....
-  stage 'Stage Checkout'
 
-  // Checkout code from repository and update any submodules
-  checkout scm
-  sh 'git submodule update --init'  
 
-  stage 'Stage Build'
 
-  //branch name from Jenkins environment variables
-  echo "My branch is: ${env.BRANCH_NAME}"
+    stage('Checkout') {
 
-  def flavor = flavor(env.BRANCH_NAME)
-  echo "Building flavor ${flavor}"
+        // Pull the code from the repo
 
-  //build your gradle flavor, passes the current build number as a parameter to gradle
-  sh "./gradlew clean assemble${flavor}Debug -PBUILD_NUMBER=${env.BUILD_NUMBER}"
+        checkout scm
 
-  stage 'Stage Archive'
-  //tell Jenkins to archive the apks
-  archiveArtifacts artifacts: 'app/build/outputs/apk/*.apk', fingerprint: true
+    }
 
-   stage ('Distribute') {
+
+
+    stage('Clean') {
+
+        sh "./gradlew clean"
+
+    }
+
+
+
+    stage('Unit Test') {
+
+        sh "./gradlew test"
+
+    }
+
+
+
+    stage 'Build Release'
+
+        sh "./gradlew assembleRelease"
+
+
+
+
+
+   if (isMainline) {
+
+
+
+        stage 'Archive'
+
+             archiveArtifacts artifacts: 'app/build/outputs/apk/release/*.apk', fingerprint: false, allowEmptyArchive: false
+
+
+
+          stage ('Distribute') {
 
               withEnv(environment) {
 
@@ -37,4 +67,11 @@ node {
               }
 
           }
+
+
+
+    }
+
+
+
 }
