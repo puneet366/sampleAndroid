@@ -32,14 +32,6 @@ node {
 
 
 
-    stage('Unit Test') {
-
-        sh "./gradlew test"
-
-    }
-
-
-
     stage 'Build Release'
 
         sh "./gradlew assembleRelease"
