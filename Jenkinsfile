@@ -50,7 +50,7 @@ node {
 
        stage 'Archive'
 
-             archiveArtifacts artifacts: "**/*.apk", fingerprint: true, allowEmptyArchive: true
+             archiveArtifacts artifacts: 'app/build/outputs/apk/release/*.apk', fingerprint: false, allowEmptyArchive: false
 
 
 
