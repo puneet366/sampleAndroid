@@ -56,7 +56,7 @@ node {
 
               withEnv(environment) {
 
-                  sh "./gradlew assembleRelease appDistributionUploadRelease"
+                  sh "./gradlew assemble appDistributionUploadRelease"
 
               }
 
