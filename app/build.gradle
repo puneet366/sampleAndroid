@@ -32,6 +32,7 @@ buildscript {
     }
 }
 firebaseAppDistribution {
+  appId="1:444141390138:android:ee515ca91696b552466803"
   releaseNotes = "Test Notes"
   serviceCredentialsFile = System.getenv("GOOGLE_APPLICATION_CREDENTIALS")
   groups = "fq-testers"
