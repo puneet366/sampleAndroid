@@ -1,10 +1,10 @@
 node {
     
-    List environment = [
+    /*List environment = [
 
         "GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/fqdemo-service-credentials-key.json"
 
-    ]
+    ]*/
 
 stage('Checkout') {
 
@@ -54,12 +54,12 @@ stage ('Distribute') {
             /*withEnv(environment) {
                   
                    //sh "./gradlew assembleRelease appDistributionUploadRelease"
-                /*  sh """./gradlew assembleDebug appDistributionUploadDebug
+                  sh """./gradlew assembleDebug appDistributionUploadDebug
               ./gradlew assembleRelease appDistributionUploadRelease
-           """ */
+           """ 
                   
                 
-                  } */
+                  }  */
     
     
                 
