@@ -36,9 +36,12 @@ stage('sign apk')  {
         keyStoreId: "7e6fd0fe-ab86-4a12-b8ea-68b9c8b20a2d",
         keyAlias: "key0",
         skipZipalign: true,
-        apksToSign: "**/*.apk",
-        archiveUnsignedApks false
+        apksToSign: "**/*.apk"
+        
         )
+    
+    signedApkMapping unsignedApkNameDir()
+    archiveUnsignedApks false
     }
 
 
