@@ -36,15 +36,16 @@ stage('sign apk')  {
         keyStoreId: "7e6fd0fe-ab86-4a12-b8ea-68b9c8b20a2d",
         keyAlias: "key0",
         skipZipalign: true,
-        apksToSign: "**/*.apk"
+        apksToSign: "**/*.apk",
+        signedApkMapping: [ $class: UnsignedApkBuilderDirMapping ]
         )
     }
 
 
 stage('Archive')  {
 
-             archiveArtifacts artifacts: 'app/build/outputs/apk/release/*.apk', fingerprint: false, allowEmptyArchive: false
-             archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*-signed.apk', fingerprint: false, allowEmptyArchive: false
+             archiveArtifacts artifacts: 'app/build/outputs/apk/**/*.apk', excludes: 'app/build/outputs/apk/*-unsigned.apk', fingerprint: false, allowEmptyArchive: false
+            // archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*-signed.apk', fingerprint: false, allowEmptyArchive: false
     }
 
 
