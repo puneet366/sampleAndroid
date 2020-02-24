@@ -43,7 +43,7 @@ stage('sign apk')  {
 
 stage('Archive')  {
 
-             archiveArtifacts artifacts: 'app/build/outputs/apk/release/*-signed.apk', fingerprint: false, allowEmptyArchive: false
+             archiveArtifacts artifacts: 'app/build/outputs/apk/release/*.apk', fingerprint: false, allowEmptyArchive: false
              archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*-signed.apk', fingerprint: false, allowEmptyArchive: false
     }
 
