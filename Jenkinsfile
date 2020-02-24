@@ -40,7 +40,7 @@ stage('sign apk')  {
         
         )
     
-    signedApkMapping unsignedApkNameDir()
+   
     archiveUnsignedApks false
     }
 
