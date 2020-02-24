@@ -39,9 +39,6 @@ stage('sign apk')  {
         apksToSign: "**/*.apk"
         
         )
-    
-   
-    archiveUnsignedApks false
     }
 
 
