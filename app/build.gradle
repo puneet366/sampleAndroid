@@ -11,6 +11,17 @@ android {
     }
 
     buildTypes {
+    
+     debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            firebaseAppDistribution {
+                appId="1:444141390138:android:c4984d1c92b288f4466803"
+                releaseNotes = "app-debug.apk"
+                serviceCredentialsFile = System.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+                groups = "fq-testers"
+            }
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
