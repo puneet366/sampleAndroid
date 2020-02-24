@@ -1,20 +1,12 @@
 node {
-
-
-
-    def isMainline = ["develop", "master"].contains(env.BRANCH_NAME)
-
-
-
+    
     List environment = [
 
         "GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/fqdemo-service-credentials-key.json"
 
     ]
 
-
-
-    stage('Checkout') {
+stage('Checkout') {
 
         // Pull the code from the repo
 
@@ -22,17 +14,13 @@ node {
 
     }
 
+stage('Clean') {
 
-
-    stage('Clean') {
-
-        sh "./gradlew clean --stacktrace --scan"
-
+        sh "./gradlew clean"
     }
 
-   
-
-    stage 'Build'
+    
+stage('Build')  {
 
         //sh "./gradlew assembleRelease"
     
@@ -40,7 +28,11 @@ node {
               ./gradlew assembleStaging
               ./gradlew assembleRelease
            """
-    stage('sign apk'){
+    }
+    
+    
+    
+stage('sign apk')  {
         signAndroidApks (
         keyStoreId: "7e6fd0fe-ab86-4a12-b8ea-68b9c8b20a2d",
         keyAlias: "key0",
@@ -48,50 +40,29 @@ node {
         apksToSign: "**/*.apk"
         )
     }
-    
 
 
-
-
-
-   if (isMainline) {
-
-
-
-        stage 'Archive'
+stage('Archive')  {
 
              archiveArtifacts artifacts: 'app/build/outputs/apk/release/*-signed.apk', fingerprint: false, allowEmptyArchive: false
              archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*-signed.apk', fingerprint: false, allowEmptyArchive: false
              archiveArtifacts artifacts: 'app/build/outputs/apk/staging/*-signed.apk', fingerprint: false, allowEmptyArchive: false
+    }
 
 
-
-
-
-
-
-          stage ('Distribute') {
+stage ('Distribute') {
 
               withEnv(environment) {
                   
-                  
-
-                  //sh "./gradlew assembleRelease appDistributionUploadRelease"
+                   //sh "./gradlew assembleRelease appDistributionUploadRelease"
                   sh """./gradlew assembleDebug appDistributionUploadDebug
                   ./gradlew assembleDebug appDistributionUploadStaging
               ./gradlew assembleRelease appDistributionUploadRelease
            """
                   
-                  
-
-              }
+                  }
 
           }
-
-
-
-    }
-
 
 
 }
