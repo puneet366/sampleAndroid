@@ -62,7 +62,7 @@ stage ('Distribute') {
                   }  */
     
     
-   sh ' firebase appdistribution:distribute /var/lib/jenkins/workspace/fqsample1_masterapp/build/outputs/apk/release/app-release.apk --app 1:444141390138:android:c4984d1c92b288f4466803 --release-notes "Bug fixes and improvements" --groups "fq-testers" --tocken 1//0ggFdqtbZ_qoDCgYIARAAGBASNwF-L9IrxFois9rdzrtVzsvVyRQKcL8CX9NG3n8waK-2YH9t1Z1W8GFs-lcIpVPneFwqXxCQ7SI'
+   sh ' firebase appdistribution:distribute /var/lib/jenkins/workspace/fqsample1_master/app/build/outputs/apk/release/app-release.apk --app 1:444141390138:android:c4984d1c92b288f4466803 --release-notes "Bug fixes and improvements" --groups "fq-testers" --tocken 1//0ggFdqtbZ_qoDCgYIARAAGBASNwF-L9IrxFois9rdzrtVzsvVyRQKcL8CX9NG3n8waK-2YH9t1Z1W8GFs-lcIpVPneFwqXxCQ7SI'
          
     
     
