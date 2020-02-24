@@ -37,7 +37,7 @@ stage('sign apk')  {
         keyAlias: "key0",
         skipZipalign: true,
         apksToSign: "**/*.apk",
-        signedApkMapping: [ $class: UnsignedApkBuilderDirMapping ]
+        archiveUnsignedApks false
         )
     }
 
