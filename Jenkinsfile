@@ -51,14 +51,15 @@ stage('Archive')  {
 
 stage ('Distribute') {
 
-              withEnv(environment) {
+            withEnv(environment) {
                   
                    //sh "./gradlew assembleRelease appDistributionUploadRelease"
-                  sh """./gradlew assembleDebug appDistributionUploadDebug
+                /*  sh """./gradlew assembleDebug appDistributionUploadDebug
               ./gradlew assembleRelease appDistributionUploadRelease
-           """
-                  
-                  }
+           """ */
+                  firebase appdistribution:distribute '/app/build/outputs/apk/release/app-release.apk'
+                
+                  } 
 
           }
 
