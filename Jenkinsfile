@@ -67,6 +67,12 @@ stage ('Distribute') {
                 sh "firebase appdistribution:distribute '/var/lib/jenkins/workspace/fqsample1_masterapp/build/outputs/apk/release/app-release.apk' --app 1:444141390138:android:c4984d1c92b288f4466803 --release-notes "Bug fixes and improvements" --testers "nikhil.vyas@firminiq.com" "
               }
     
+                steps {
+         bash '''#!/bin/bash
+                 firebase appdistribution:distribute '/var/lib/jenkins/workspace/fqsample1_masterapp/build/outputs/apk/release/app-release.apk' --app 1:444141390138:android:c4984d1c92b288f4466803 --release-notes "Bug fixes and improvements" --testers "nikhil.vyas@firminiq.com"
+         '''
+    }
+    
             
 
           }
