@@ -62,7 +62,8 @@ stage ('Distribute') {
                   }  */
     
     
-   sh ' firebase appdistribution:distribute /var/lib/jenkins/workspace/fqsample1_master/app/build/outputs/apk/release/app-release.apk --app 1:444141390138:android:c4984d1c92b288f4466803 --release-notes "Bug fixes and improvements" --groups "fq-testers" '
+   sh ' firebase appdistribution:distribute /var/lib/jenkins/workspace/fqsample1_master/app/build/outputs/apk/release/app-release.apk --app 1:444141390138:android:c4984d1c92b288f4466803 --release-notes "app-release.apk" --groups "fq-testers" '
+   sh ' firebase appdistribution:distribute /var/lib/jenkins/workspace/fqsample1_master/app/build/outputs/apk/debug/*-signed.apk --app 1:444141390138:android:c4984d1c92b288f4466803 --release-notes "app-debug.apk" --groups "fq-testers" '
          
     
     
