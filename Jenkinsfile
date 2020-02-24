@@ -25,7 +25,6 @@ stage('Build')  {
         //sh "./gradlew assembleRelease"
     
         sh """./gradlew assembleDebug
-              ./gradlew assembleStaging
               ./gradlew assembleRelease
            """
     }
@@ -46,7 +45,6 @@ stage('Archive')  {
 
              archiveArtifacts artifacts: 'app/build/outputs/apk/release/*-signed.apk', fingerprint: false, allowEmptyArchive: false
              archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*-signed.apk', fingerprint: false, allowEmptyArchive: false
-             archiveArtifacts artifacts: 'app/build/outputs/apk/staging/*-signed.apk', fingerprint: false, allowEmptyArchive: false
     }
 
 
@@ -56,7 +54,6 @@ stage ('Distribute') {
                   
                    //sh "./gradlew assembleRelease appDistributionUploadRelease"
                   sh """./gradlew assembleDebug appDistributionUploadDebug
-                  ./gradlew assembleDebug appDistributionUploadStaging
               ./gradlew assembleRelease appDistributionUploadRelease
            """
                   
