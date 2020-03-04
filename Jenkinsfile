@@ -42,11 +42,11 @@ stage('sign apk')  {
     }
 
 
-/*stage('Archive')  {
+stage('Archive')  {
 
-             archiveArtifacts artifacts: 'app/build/outputs/apk/debug/*-signed.apk', excludes: 'app/build/outputs/apk/debug/app-debug.apk/app-debug-signed.apk', allowEmptyArchive: false
-             archiveArtifacts artifacts: 'app/build/outputs/apk/release/app-release.apk', excludes: 'app/build/outputs/apk/release/app-release-unsigned.apk/app-release.apk', allowEmptyArchive: false
-    } */
+             archiveArtifacts artifacts: '**/*-signed.apk',  allowEmptyArchive: false
+             archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
+    } 
 
 
 stage ('Distribute') {
