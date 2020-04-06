@@ -33,7 +33,7 @@ stage('Build')  {
     
 stage('sign apk')  {
         signAndroidApks (
-        keyStoreId: "7e6fd0fe-ab86-4a12-b8ea-68b9c8b20a2d",
+        keyStoreId: "d8791f5a-e4eb-4bf2-a50c-ef45289a2708",
         keyAlias: "key0",
         skipZipalign: true,
         apksToSign: "**/*.apk"
