@@ -42,7 +42,4 @@ Sample Listing:
  - Chapter 10: Publishing
    - APK Instruction
 commit ok
- ok
-okokok
-ok
-oklkk
+
