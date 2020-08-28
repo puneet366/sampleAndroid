@@ -71,8 +71,10 @@ stage ('Distribute') {
           }
 
 
-    stage ('Email Notification'){
-        mail bcc: '', body: 'Hi testing', cc: '', from: '', replyTo: '', subject: 'jenkins email', to: 'sharma.shishu16@gmail.com,puneet.sharma@firminiq.com'
-        
+    post {
+    failure {
+        mail to: 'sharma.shishu16@gmail.com',
+             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             body: "Something is wrong with ${env.BUILD_URL}"
     }
 }
