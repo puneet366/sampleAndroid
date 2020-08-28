@@ -1,5 +1,5 @@
 node {
-    
+     try   
     /*List environment = [
 
         "GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/fqdemo-service-credentials-key.json"
@@ -71,22 +71,8 @@ stage ('Distribute') {
           }
 
 
-    post {
- always {
-   sh 'echo "This will always run"'
- }
- success {
-  sh 'echo "This will run only if successful"'
- }
- failure {
-  sh 'echo "This will run only if failed"'
- }
- unstable {
-  sh 'echo "This will run only if the run was marked as unstable"'
- }
- changed {
-  sh 'echo "This will run only if the state of the Pipeline has changed"'
-  sh 'echo "For example, the Pipeline was previously failing but is now successful"'
-  sh 'echo "... or the other way around :)"'
- }
-}
+     }catch(e){
+        Notification for JOB Failure
+    }finally{
+
+    }
