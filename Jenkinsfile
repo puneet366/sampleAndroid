@@ -66,16 +66,13 @@ stage ('Distribute') {
    sh ' firebase appdistribution:distribute /var/lib/jenkins/workspace/android-automation/app/build/outputs/apk/debug/*-signed.apk --app 1:444141390138:android:c4984d1c92b288f4466803 --release-notes "app-debug.apk" --groups "fq-testers" '
          
     
-    
-            
+               
 
           }
 
 
-}
-post {
-        always {
-            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
-            
-        }
+    stage ('Email Notification'){
+        mail bcc: '', body: 'Hi testing', cc: '', from: '', replyTo: '', subject: 'jenkins email', to: 'sharma.shishu16@gmail.com,puneet.sharma@firminiq.com'
+        
     }
+}
