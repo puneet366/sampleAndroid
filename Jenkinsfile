@@ -73,6 +73,8 @@ stage ('Distribute') {
 
      }catch(e){
         Notification for JOB Failure
-    }finally{
+     }finally{
+          
+     }
 
-    }
+}
