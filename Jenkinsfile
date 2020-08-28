@@ -71,10 +71,8 @@ stage ('Distribute') {
           }
 
 
-     }catch(e){
-        Notification for JOB Failure
-     }finally{
-          
-     }
-
-}
+    stage ('Email Notification'){
+      mail bcc: '', body: 'jenkin testing', cc: '', from: '', replyTo: '', subject: 'jenkin test', to: 'sharma.shishu16@gmail.com'
+  }
+    
+}    
