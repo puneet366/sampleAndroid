@@ -75,4 +75,4 @@ stage ('Distribute') {
       mail bcc: '', body: 'jenkin testing', cc: '', from: '', replyTo: '', subject: 'jenkin test', to: 'sharma.shishu16@gmail.com'
   }
     
-}    
+}   
