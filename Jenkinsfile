@@ -48,20 +48,19 @@ stage('Archive')  {
              archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
     } 
          }
-    catch (err)
-    {
-        //Do something
-        throw err
-    }
-    finally
-    {
-        stage('Email')
-        {
-            env.ForEmailPlugin = env.WORKSPACE      
-            emailext attachmentsPattern: 'TestResults\\*.trx',      
-            body: '''${SCRIPT, template="groovy_html.template"}''', 
-            subject: currentBuild.currentResult + " : " + env.JOB_NAME, 
-            to: 'puneet.sharma@firminiq.com'
+    post {
+
+        failure {
+            mail to: 'puneet.sharma@firminiq.com',
+            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+            body: "Build failed: ${env.BUILD_URL}"
+        }
+
+        success {
+            if (currentBuild.previousBuild != null && currentBuild.previousBuild.result != 'SUCCESS') {
+                mail to: 'puneet.sharma@firminiq.com',
+                subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
+                body: "Build is back to normal (success): ${env.BUILD_URL}"     
+            }           
         }
     }
-}
