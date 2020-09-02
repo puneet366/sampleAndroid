@@ -62,5 +62,4 @@ stage('Archive')  {
                 subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
                 body: "Build is back to normal (success): ${env.BUILD_URL}"     
             }           
-        }
-    }
+}
