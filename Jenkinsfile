@@ -1,53 +1,31 @@
-node {
-         try
-         {
-         /*List environment = [
-
-        "GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/fqdemo-service-credentials-key.json"
-    ]*/
-
-stage('Checkout') {
-
-        // Pull the code from the repo
-
-        checkout scm
-
-    }
-
-stage('Clean') {
-
-        sh "./gradlew clean"
-    }
-
-    
-stage('Build')  {
-
-        //sh "./gradlew assembleRelease"
-    
-        sh """./gradlew assembleDebug
-              ./gradlew assembleRelease
-           """
-    }
-    
-    
-    
-stage('sign apk')  {
-        signAndroidApks (
-        keyStoreId: "7e6fd0fe-ab86-4a12-b8ea-68b9c8b20a2d",
-        keyAlias: "key0",
-        skipZipalign: true,
-        apksToSign: "**/*.apk"
+node('master') 
+{   
+    try 
+    { 
+        stage ('Checkout') 
+        { 
+            deleteDir()
+            checkout scm   
+        }
+ 
+ 
+        stage ('Compile')
+        { 
+            //All the compilation steps
+        }
         
-        )
-    }
-
-
-stage('Archive')  {
-
-             archiveArtifacts artifacts: '**/*-signed.apk',  allowEmptyArchive: false
-             archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
+        stage ('TestRun') 
+        {
+            //Run all the tests
+        }
+        
+        stage('TestResultpublish')
+        { 
+            step([$class: 'MSTestPublisher', testResultsFile: 'TestResults/*.trx'])
+            zip archive: true, dir: '\\apps\\TestApplication\\bin\\Release', glob: '', zipFile: tagName + '.zip'
+    
+        }
     } 
-         }
     catch (err)
     {
         //Do something
