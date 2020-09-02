@@ -69,7 +69,15 @@ stage ('Distribute') {
           }
 
 
- stage ('Email Notification'){
-      mail bcc: '', body: 'jenkin testing', cc: '', from: 'puneet.sharma@firminiq.com', replyTo: '', subject: 'jenkin test', to: 'puneet.sharma@firminiq.com'
+ stage('Send email') {
+    def mailRecipients = "sharma.shishu16@gmail.com"
+    def jobName = currentBuild.fullDisplayName
+
+    emailext body: '''${SCRIPT, template="groovy-html.template"}''',
+        mimeType: 'text/html',
+        subject: "[Jenkins] ${jobName}",
+        to: "${mailRecipients}",
+        replyTo: "${mailRecipients}",
+        recipientProviders: [[$class: 'CulpritsRecipientProvider']]
           }
      }
