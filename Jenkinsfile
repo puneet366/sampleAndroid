@@ -72,6 +72,5 @@ stage ('Distribute') {
  stage ('Email Notification'){
       mail bcc: '', body: 'jenkin testing', cc: '', from: 'puneet.sharma@firminiq.com', replyTo: '', subject: 'jenkin test', to: 'puneet.sharma@firminiq.com'
           }
-     }
-    
-}   
+     }   
+}
