@@ -47,6 +47,7 @@ stage('Archive')  {
              archiveArtifacts artifacts: '**/*-signed.apk',  allowEmptyArchive: false
              archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
     } 
+         }
     catch (err)
     {
         //Do something
