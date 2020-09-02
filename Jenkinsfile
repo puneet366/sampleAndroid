@@ -61,6 +61,5 @@ stage('Archive')  {
                 mail to: 'puneet.sharma@firminiq.com',
                 subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
                 body: "Build is back to normal (success): ${env.BUILD_URL}"     
-            }  
-      }            
+           }            
 }
