@@ -1,6 +1,5 @@
 node {
-     try { 
-    /*List environment = [
+         /*List environment = [
 
         "GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/fqdemo-service-credentials-key.json"
     ]*/
