@@ -48,20 +48,39 @@ stage('Archive')  {
              archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
     } 
           }
- catch (err)
-    {
-        //Do something
-        throw err
-    }
-    finally
-    {
-        stage('Email')
-        {
-            env.ForEmailPlugin = env.WORKSPACE      
-            emailext attachmentsPattern: 'TestResults\\*.trx',      
-            body: '''${SCRIPT, template="groovy_html.template"}''', 
-            subject: currentBuild.currentResult + " : " + env.JOB_NAME, 
-            to: 'sharma.shishu16@gmail.com'
-        }
-    }
+ notifyStarted()
+
+    /* ... existing build steps ... */
+
+    notifySuccessful()
+  } catch (e) {
+    currentBuild.result = "FAILED"
+    notifyFailed()
+    throw e
+  }
+}
+
+def notifyStarted() { /* .. */ }
+
+def notifySuccessful() { /* .. */ }
+
+def notifyFailed() {
+  slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+
+  hipchatSend (color: 'RED', notify: true,
+      message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+    )
+
+  emailext (
+      subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+      body: """
+FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':
+
+
+        
+Check console output at "${env.JOB_NAME} [${env.BUILD_NUMBER}]"
+
+""",
+      recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+    )
 }
