@@ -60,7 +60,7 @@ stage('Archive')  {
             if (currentBuild.previousBuild != null && currentBuild.previousBuild.result != 'SUCCESS') {
                 mail to: 'user@mail.com',
                 subject: "Pipeline Success: ${currentBuild.fullDisplayName}",
-                body: "Build is back to normal (success): ${env.BUILD_URL}"
+                body: 'Build is back to normal (success): ${env.BUILD_URL}'
         }
     }
 }
