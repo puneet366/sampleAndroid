@@ -52,7 +52,9 @@ stage('Archive')  {
 
     /* ... existing build steps ... */
     notifySuccessful()
-   } catch (e) {
+ } 
+catch (e) 
+{
     currentBuild.result = "FAILED"
     notifyFailed()
     throw e
