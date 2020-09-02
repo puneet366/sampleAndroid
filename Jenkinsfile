@@ -69,8 +69,6 @@ stage ('Distribute') {
                
 
           }
-
-
  catch (err)
     {
         //Do something
