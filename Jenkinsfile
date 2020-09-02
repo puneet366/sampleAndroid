@@ -1,4 +1,6 @@
 node {
+         try
+         {
          /*List environment = [
 
         "GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/fqdemo-service-credentials-key.json"
@@ -69,15 +71,20 @@ stage ('Distribute') {
           }
 
 
- stage('Send email') {
-    def mailRecipients = "sharma.shishu16@gmail.com"
-    def jobName = currentBuild.fullDisplayName
-
-    emailext body: '''${SCRIPT, template="groovy-html.template"}''',
-        mimeType: 'text/html',
-        subject: "[Jenkins] ${jobName}",
-        to: "${mailRecipients}",
-        replyTo: "${mailRecipients}",
-        recipientProviders: [[$class: 'CulpritsRecipientProvider']]
-          }
-     }
+ catch (err)
+    {
+        //Do something
+        throw err
+    }
+    finally
+    {
+        stage('Email')
+        {
+            env.ForEmailPlugin = env.WORKSPACE      
+            emailext attachmentsPattern: 'TestResults\\*.trx',      
+            body: '''${SCRIPT, template="groovy_html.template"}''', 
+            subject: currentBuild.currentResult + " : " + env.JOB_NAME, 
+            to: 'sharma.shishu16@gmail.com'
+        }
+    }
+}
