@@ -42,8 +42,8 @@ stage('Archive')  {
              archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
     } 
          } catch (e) {
-           currentBuild.result = "Puneet"
-           notifyPuneet()
+           currentBuild.result = "FAILED"
+           notifyFailed()
            throw e
     }
     finally
