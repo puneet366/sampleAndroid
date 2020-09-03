@@ -52,8 +52,9 @@ stage('Archive')  {
 sh 'ant test.acceptance'
 notifySuccessful()
 } 
-catch (e) 
-{
+         }
+    catch (err)
+    {
 notifyFailed()
 throw e
 }
