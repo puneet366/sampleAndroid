@@ -47,7 +47,6 @@ stage('Archive')  {
     } 
          }
     agent any
-     
     stages {
         stage('Ok') {
             steps {
@@ -60,4 +59,3 @@ stage('Archive')  {
             emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
         }
     }
-}
