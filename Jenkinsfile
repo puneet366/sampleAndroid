@@ -48,20 +48,18 @@ stage('Archive')  {
              archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
     } 
          }
-    catch (err)
-    {
-        //Do something
-        throw err
+    agent any
+     
+    stages {
+        stage('Ok') {
+            steps {
+                echo "Ok"
+            }
+        }
     }
-    finally
-    {
-        stage('Email')
-        {
-            env.ForEmailPlugin = env.WORKSPACE      
-            emailext attachmentsPattern: 'TestResults\\*.trx',      
-            body: '''${SCRIPT, template="groovy_html.template"}''', 
-            subject: currentBuild.currentResult + " : " + env.JOB_NAME, 
-            to: 'puneet.sharma@firminiq.com'
+    post {
+        always {
+            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
         }
     }
 }
