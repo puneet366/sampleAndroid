@@ -80,7 +80,6 @@ stage('Archive')  {
         always {
             echo 'I will always say Hello again!'
             
-            mail bcc: '', body: 'Testing jenkins by puneet', cc: '', from: 'sharma.shishu16@gmail.com', replyTo: '', subject: 'Failure', to: 'puneet.sharma@firminiq.com'
-            
+            mail bcc: '', body: 'Testing jenkins by puneet', cc: '', from: 'sharma.shishu16@gmail.com', replyTo: '', subject: 'Failure', to: 'puneet.sharma@firminiq.com'          
         }
-    }
+}
