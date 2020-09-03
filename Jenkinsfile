@@ -80,9 +80,7 @@ stage('Archive')  {
         always {
             echo 'I will always say Hello again!'
             
-            emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
+            mail bcc: '', body: 'Testing jenkins by puneet', cc: '', from: 'sharma.shishu16@gmail.com', replyTo: '', subject: 'Failure', to: 'puneet.sharma@firminiq.com'
             
         }
     }
