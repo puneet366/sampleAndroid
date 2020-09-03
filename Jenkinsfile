@@ -81,5 +81,4 @@ def notifyBuild(String buildStatus = 'STARTED') {
             subject: currentBuild.currentResult + " : " + env.JOB_NAME, 
             to: 'puneet.sharma@firminiq.com'
         }
-    }
 }
