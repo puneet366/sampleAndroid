@@ -1,60 +1,29 @@
-node {
-         try
-         {
-         /*List environment = [
-
-        "GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/fqdemo-service-credentials-key.json"
-    ]*/
-
+node ('linux') {
+try {
 stage('Checkout') {
+checkout scm
+}
+stage('Lint') {
+sh 'ant lint'
+}
+stage('Build') {
+sh 'ant composer.install'
+}
+stage('Code Analysis') {
+sh 'ant sonar'
+}
+stage('Deploy') {
+sh 'ant permissions.set'
+sh 'ant deploy'
+}
 
-        // Pull the code from the repo
+}
 
-        checkout scm
-
-    }
-
-stage('Clean') {
-
-        sh "./gradlew clean"
-    }
-
-    
-stage('Build')  {
-
-        //sh "./gradlew assembleRelease"
-    
-        sh """./gradlew assembleDebug
-              ./gradlew assembleRelease
-           """
-    }
-    
-    
-    
-stage('sign apk')  {
-        signAndroidApks (
-        keyStoreId: "7e6fd0fe-ab86-4a12-b8ea-68b9c8b20a2d",
-        keyAlias: "key0",
-        skipZipalign: true,
-        apksToSign: "**/*.apk"
-        
-        )
-    }
-
-
-stage('Archive')  {
-
-             archiveArtifacts artifacts: '**/*-signed.apk',  allowEmptyArchive: false
-             archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
-    } 
-         }
-    stage('Acceptance') {
+stage('Acceptance') {
 sh 'ant test.acceptance'
+
 notifySuccessful()
-} 
-         }
-    catch (err)
-    {
+} catch (e) {
 notifyFailed()
 throw e
 }
@@ -79,3 +48,5 @@ message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' ($
 {env.BUILD_URL})"
 )
 }
+
+
