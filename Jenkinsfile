@@ -1,5 +1,7 @@
 node {
-               /*List environment = [
+         try
+         {
+         /*List environment = [
 
         "GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/fqdemo-service-credentials-key.json"
     ]*/
@@ -46,16 +48,20 @@ stage('Archive')  {
              archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
     } 
          }
-    agent any
-    stages {
-        stage('Ok') {
-            steps {
-                echo "Ok"
-            }
+    catch (err)
+    {
+        //Do something
+        throw err
+    }
+    finally
+    {
+        stage('Email')
+        {
+            env.ForEmailPlugin = env.WORKSPACE      
+            emailext attachmentsPattern: 'TestResults\\*.trx',      
+            body: '''${SCRIPT, template="groovy_html.template"}''', 
+            subject: currentBuild.currentResult + " : " + env.JOB_NAME, 
+            to: 'puneet.sharma@firminiq.com'
         }
     }
-    post {
-        always {
-            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
-        }
-    }
+}
