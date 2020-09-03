@@ -48,38 +48,32 @@ stage('Archive')  {
              archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
     } 
          }
-    pipeline {
-    environment {
-        //This variable need be tested as string
-        doError = '1'
-    }
-   
-    agent any
-    
-    stages {
-        stage('Error') {
-            when {
-                expression { doError == '1' }
-            }
-            steps {
-                echo "Failure"
-                error "failure test. It's work"
-            }
-        }
-        
-        stage('Success') {
-            when {
-                expression { doError == '0' }
-            }
-            steps {
-                echo "ok"
-            }
-        }
-    }
-    post {
-        always {
-            echo 'I will always say Hello again!'
-            
-            mail bcc: '', body: 'Testing jenkins by puneet', cc: '', from: 'sharma.shishu16@gmail.com', replyTo: '', subject: 'Failure', to: 'puneet.sharma@firminiq.com'          
-        }
+    stage('Acceptance') {
+sh 'ant test.acceptance'
+
+notifySuccessful()
+} catch (e) {
+notifyFailed()
+throw e
+}
+}
+def notifyFailed() {
+hipchatSend (color: 'RED', notify: true,
+message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' ($
+{env.BUILD_URL})"
+)
+emailext (
+subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+<p>Check console output at &QUOT;<a href='$
+{env.BUILD_URL}/consoleText'>${env.JOB_NAME} [$
+{env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+to: 'xxxxx'
+)
+}
+def notifySuccessful() {
+hipchatSend (color: 'GREEN', notify: true,
+message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' ($
+{env.BUILD_URL})"
+)
 }
