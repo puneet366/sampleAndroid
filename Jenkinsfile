@@ -39,14 +39,9 @@ stage('Archive')  {
              archiveArtifacts artifacts: '**/*-signed.apk',  allowEmptyArchive: false
              archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
     }
-  post {
-    success {
-      sh "echo 'Send mail on success'"
-      // mail to:"puneet.sharma@firminiq.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
-    }
-    failure {
-      sh "echo 'Send mail on failure'"
-      // mail to:"puneet.sharma@firminiq.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
-    }
+  stage('Email Notofication')  {
+    mail bcc: '', body: 'Hi Welcome to Jenkins email notification', cc: '', from: '', replyTo: '', subject: 'Jenkins email notification', to: 'puneet.sharma@firminiq.com'
+    
   }
+  
 }
