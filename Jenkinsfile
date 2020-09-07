@@ -40,7 +40,7 @@ stage('Archive')  {
              archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
     }
   stage('Email Notofication')  {
-    mail bcc: '', body: 'Hi Welcome to Jenkins email notification', cc: '', from: '', replyTo: '', subject: 'Jenkins email notification', to: 'puneet.sharma@firminiq.com'
+    mail bcc: '', body: 'Hi Welcome to Jenkins email notification', cc: '', from: 'sharma.shishu16@gmail.com', replyTo: '', subject: 'Jenkins email notification', to: 'puneet.sharma@firminiq.com'
     
   }
   
