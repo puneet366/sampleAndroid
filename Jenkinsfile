@@ -42,7 +42,7 @@ stage('Archive')  {
   post {
     success {
       sh "echo 'Send mail on success'"
-      // mail to:"puneet.sharma@firminiq", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
+      // mail to:"puneet.sharma@firminiq.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
     }
     failure {
       sh "echo 'Send mail on failure'"
