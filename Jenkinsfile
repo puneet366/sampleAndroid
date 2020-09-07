@@ -1,7 +1,5 @@
 node {
-         try
-         {
-         /*List environment = [
+                        /*List environment = [
         "GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/fqdemo-service-credentials-key.json"
     ]*/
 
@@ -40,21 +38,15 @@ stage('sign apk')  {
 stage('Archive')  {
              archiveArtifacts artifacts: '**/*-signed.apk',  allowEmptyArchive: false
              archiveArtifacts artifacts: '**/app-release.apk',  allowEmptyArchive: false
-    } 
-         } catch (e) {
-           currentBuild.result = "FAILED"
-           notifyFailed()
-           throw e
     }
-    finally
-    {
-        stage('Email')
-        {
-            env.ForEmailPlugin = env.WORKSPACE      
-            emailext attachmentsPattern: 'TestResults\\*.trx',      
-            body: '''${SCRIPT, template="groovy_html.template"}''', 
-            subject: currentBuild.currentResult + " : " + env.JOB_NAME, 
-            to: 'puneet.sharma@firminiq.com'
-        }
+  post {
+    success {
+      sh "echo 'Send mail on success'"
+      // mail to:"puneet.sharma@firminiq", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
     }
+    failure {
+      sh "echo 'Send mail on failure'"
+      // mail to:"puneet.sharma@firminiq.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
+    }
+  }
 }
