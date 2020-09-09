@@ -10,20 +10,8 @@ node {
 stage('Checkout') {
         // Pull the code from the repo
         checkout scm
-    }
-
- 
-stage('Clean') {
-        sh "./gradlew clean"
-    }
-    
-stage('Build')  {
-        //sh "./gradlew assembleRelease"
-        sh """./gradlew assembleDebug
-              ./gradlew assembleRelease
-           """    
     } 
-         } catch (e) {
+        } catch (e) {
            currentBuild.result = "FAILED"
            notifyFailed()
            throw e
