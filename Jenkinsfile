@@ -10,7 +10,6 @@ node {
 stage('Checkout') {
         // Pull the code from the repo
         checkout scm
-         akjofhpjf[qif[=qiw={}{}{
     } 
         } catch (e) {
            currentBuild.result = "SUCCESS"
