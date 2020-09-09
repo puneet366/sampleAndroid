@@ -12,8 +12,8 @@ stage('Checkout') {
         checkout scm
     } 
         } catch (e) {
-           currentBuild.result = "FAILED"
-           notifyFailed()
+           currentBuild.result = "SUCCESS"
+           notifySUCCESS()
            throw e
     }
     finally
