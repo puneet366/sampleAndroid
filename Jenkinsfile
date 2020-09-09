@@ -17,9 +17,7 @@ stage('Checkout') {
            throw e
     }
     finally
-             }hgiugiugiug
-}}}}}}}}}}}
-    {
+         {
         stage('Email')
         {
             env.ForEmailPlugin = env.WORKSPACE      
