@@ -9,9 +9,7 @@ node {
 
 stage('Checkout') {
         // Pull the code from the repo
-         checkout scm{{
-                  {}{}{
-                           {}
+         checkout scm
     } 
         } catch (e) {
            currentBuild.result = "SUCCESS"
